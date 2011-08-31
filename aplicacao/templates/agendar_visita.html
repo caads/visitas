@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript" src="/media/script.js"></script>
+    <script type="text/javascript" src="/media/jquery.js"></script>
+    <script type="text/javascript" src="/media/maskedinput.js"></script>
+    <script type="text/javascript">
+        $.noConflict( )
+        jQuery(function($){
+            $("#id_telefone_de_contato").mask("(99) 9999-9999");
+        });
+        function num(dom){
+    	    dom.value=dom.value.replace(/\D/g,'');
+        }
+        function maiuscula(valor){
+            var elemento=document.form;
+            elemento.nome_da_escola.value=elemento.nome_da_escola.value.toUpperCase();
+            elemento.responsavel_escola.value=elemento.responsavel_escola.value.toUpperCase();
+            elemento.responsavel1.value=elemento.responsavel1.value.toUpperCase();
+            elemento.responsavel2.value=elemento.responsavel2.value.toUpperCase();
+            elemento.responsavel3.value=elemento.responsavel3.value.toUpperCase();
+            elemento.responsavel4.value=elemento.responsavel4.value.toUpperCase();
+            elemento.responsavel5.value=elemento.responsavel5.value.toUpperCase();
+            elemento.responsavel6.value=elemento.responsavel6.value.toUpperCase();
+            
+        }
+        function minuscula(valor){
+            var elemento=document.form;
+            elemento.email.value=elemento.email.value.toLowerCase();
+        }
+    </script> 
+{% endblock scripts %}
+{% block subtitle %}
+    <center> Agendamento de Visitas </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <form name="form" action="agendar_visita" enctype="multipart/form-data" method="post">
+        <table>
+            <fildset>                            
+                <tr><td>&nbsp;</td></tr>                            
+                <tr>
+                    <th>
+                        Escola:
+                        {% if erro %}
+                            {{form.nome_da_escola.errors}}
+              			{% endif %}
+                    </th>
+                </tr>
+                <tr><td colspan="2">{{form.nome_da_escola}}</td></tr>
+                <tr>
+                    <th>
+                        Responsável pela Escola:
+                        {% if erro %}
+              			    {{form.responsavel_escola.errors}}
+           			    {% endif %}
+                    </th>
+                </tr>
+                <tr><td colspan="2">{{form.responsavel_escola}}</td></tr>
+                <tr>
+                    <th>
+                        Responsável pela Visita:
+                    </th>
+                </tr>
+                {% if i >= 1 %}
+                    <tr><td>Responsável pelo Grupo 1</td></tr>
+                    <tr>
+                        <td>
+                            {% if erro %}
+              			        {{form.responsavel1.errors}}
+           			        {% endif %}
+           			    </td>
+           			</tr>
+                    <tr><td colspan="2">{{form.responsavel1}}</td></tr>
+                {% endif %}
+                {% if i >= 2 %}
+                    <tr><td>Responsável pelo Grupo 2</td></tr>
+                    <tr>
+                        <td>
+                            {% if erro %}
+              			        {{form.responsavel1.errors}}
+           			        {% endif %}
+           			    </td>
+           			</tr>
+                    <tr><td colspan="2">{{form.responsavel2}}</td></tr>
+                {% endif %}
+                {% if i >= 3 %}
+                    <tr><td>Responsável pelo Grupo 3</td></tr>
+                    <tr>
+                        <td>
+                            {% if erro %}
+              			        {{form.responsavel1.errors}}
+           			        {% endif %}
+           			    </td>
+           			</tr>
+                    <tr><td colspan="2">{{form.responsavel3}}</td></tr>
+                {% endif %}
+                {% if i >= 4 %}
+                    <tr><td>Responsável pelo Grupo 4</td></tr>
+                    <tr>
+                        <td>
+                            {% if erro %}
+              			        {{form.responsavel1.errors}}
+           			        {% endif %}
+           			    </td>
+           			</tr>
+                    <tr><td colspan="2">{{form.responsavel4}}</td></tr>
+                {% endif %}
+                {% if i >= 5 %}
+                    <tr><td>Responsável pelo Grupo 5</td></tr>
+                    <tr>
+                        <td>
+                            {% if erro %}
+              			        {{form.responsavel1.errors}}
+           			        {% endif %}
+           			    </td>
+           			</tr>
+                    <tr><td colspan="2">{{form.responsavel5}}</td></tr>
+                {% endif %}
+                {% if i >= 6 %}
+                    <tr><td>Responsável pelo Grupo 6</td></tr>
+                    <tr>
+                        <td>
+                            {% if erro %}
+              			        {{form.responsavel1.errors}}
+           			        {% endif %}
+           			    </td>
+           			</tr>
+                    <tr><td colspan="2">{{form.responsavel6}}</td></tr>
+                {% endif %}
+                <tr>
+                    <th>
+                        Telefone:
+                        {% if erro %}
+             			    {{form.telefone_de_contato.errors}}
+          			    {% endif %}
+                    </th>
+                </tr>
+                <tr><td colspan="2">{{form.telefone_de_contato}}</td></tr>
+                <tr>
+                    <th>
+                        E-mail:
+                        {% if erro %}
+               			    {{form.email.errors}}
+           			    {% endif %}
+                    </th>
+                </tr>
+                <tr><td colspan="2">{{form.email}}</td></tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="hidden" size="40" id="id_quantidade_de_visitantes" onkeyup="num(this);" maxlength="3" name="quantidade_de_visitantes" value={{visitantes}}>
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr><td>&nbsp;</td></tr>
+                <tr>
+                    <th align="center">Horários - 08/09/2011:</th>
+                    <th align="center">Horários - 09/09/2011:</th>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2">
+                        {% if erro %}
+                            {{form.horario.errors}}
+                        {% endif %}
+                        <ul class="errorlist">
+                            <li>
+                                {% if erro_vagas %}
+                                    {{texto_erro}}
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{form.horario1}}</td>
+                    <td>{{form.horario}}</td>
+                </tr>
+                <tr>
+                    <td>{{form.data}}</td>
+                </tr>
+			</fieldset>
+        <tr>
+            <td>
+                <input type="submit" value="Agendar"/>
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" value="Voltar" onclick="history.go(-1)">
+            </td>
+	    </tr>
+	</table>
+</form>   
+{% endblock conteudo %}
+
+
+
+
+

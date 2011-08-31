@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block subtitle %}
+    <center>Agendamento de Visita</center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <strong>
+		<p>
+		    Visita agendada com sucesso.
+		    <br><br>
+		    Foi encaminhado e-mail de confirmação para {{email}}.
+		</p>
+		
+	</strong>	
+	<p>
+	    <input type="button" value="Voltar" onclick="location.href='/agendar_visita';">
+	</p>
+{% endblock conteudo %}
+
+

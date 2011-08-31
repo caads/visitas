@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript" src="/media/script.js"></script>
+    <script type="text/javascript" src="/media/jquery.js"></script>
+    <script type="text/javascript" src="/media/maskedinput.js"></script>
+    <script type="text/javascript">
+        $.noConflict( )
+        jQuery(function($){
+            $("#id_telefone_de_contato").mask("(99) 9999-9999");
+        });
+        function num(dom){
+    	    dom.value=dom.value.replace(/\D/g,'');
+        }
+        function maiuscula(valor){
+            var elemento=document.form;
+            elemento.nome_da_escola.value=elemento.nome_da_escola.value.toUpperCase();
+            elemento.responsavel_pela_visita.value=elemento.responsavel_pela_visita.value.toUpperCase();
+            elemento.responsavel_escola.value=elemento.responsavel_escola.value.toUpperCase();
+        }
+        function minuscula(valor){
+            var elemento=document.form;
+            elemento.email.value=elemento.email.value.toLowerCase();
+        }
+    </script> 
+{% endblock scripts %}
+{% block subtitle %}
+    <center> Agendamento de Visitas </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <form name="form" action="" enctype="multipart/form-data" method="get">
+        <table>
+            <fildset>                            
+                <tr><td>&nbsp;</td></tr>                            
+                 <tr>
+                    <th>
+                        Informe a quantidade de visitantes:
+                        {% if erro %}
+                            <ul class="errorlist">
+                                <li>{{texto_erro}}</li>
+                            </ul>
+                    	{% endif %}
+                    </th>
+                </tr>
+                <tr><td colspan="2">{{form.quantidade_de_visitantes}}</td></tr>
+        </fieldset>
+        <tr>
+            <td><input type="submit" value="Continuar"/></td>
+	    </tr>
+	</table>
+</form>   
+{% endblock conteudo %}
+
+
+
+
+

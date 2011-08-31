@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block scripts %}
+    <script type="text/javascript">
+        function maiuscula(valor){
+            var elemento=document.form;
+            elemento.escola.value=elemento.escola.value.toUpperCase();
+        }
+        function desabilitar(valor){
+            var elemento=document.form;
+            if (valor == "todos"){
+                document.getElementById("data").value = '';
+                document.getElementById("data").disabled = true;
+                document.getElementById("escola").value = '';
+                document.getElementById("escola").disabled = true;
+                document.getElementById("status").value = 'todos';
+            }
+            else if (valor == "data"){
+                    document.getElementById("data").disabled = false;
+                    document.getElementById("escola").value = '';
+                    document.getElementById("escola").disabled = true;
+                    document.getElementById("status").value = 'data';
+            }
+            else if (valor == "escola"){
+                    document.getElementById("data").disabled = true;
+                    document.getElementById("escola").disabled = false;
+                    document.getElementById("status").value = 'escola';
+            }
+        }  
+           
+    </script> 
+{% endblock scripts %}
+{% block subtitle %}
+    <center> Consulta de Visitas </center>
+{% endblock subtitle %}
+{% block conteudo %}
+    <form name="form" action="" enctype="multipart/form-data" method="post">
+        <table>
+            <fildset>                            
+                <tr><td>&nbsp;</td></tr>                            
+                 <tr>
+                    <th>Consultar por:</th>
+                </tr>
+                <tr><td>&nbsp;{{form.errors}}</td></tr>
+                <tr>
+                    <td>
+                        <input type="radio" value="todos" name="filtro" onclick="desabilitar(this.value);"> Todos
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" value="data" name="filtro" onclick="desabilitar(this.value);"> Data
+                    </td>
+                    <td>
+                        <select name="data" id="data">
+                            <option value=""></option>
+                            <option value="08/09/2011">08/09/2011</option>
+                            <option value="09/09/2011">09/09/2011</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="radio" value="escola" name="filtro" onclick="desabilitar(this.value);"> Escola
+                    </td>
+                    <td>
+                        <input type="text" name="escola" onkeyup="maiuscula(this.value);" id="escola">
+                    </td>
+                </tr>
+            </fieldset>
+            <tr><td>&nbsp;<input type="hidden" name="status" id="status"></td></tr>
+            <tr>
+                <td><input type="submit" value="Buscar"/></td>
+	        </tr>
+	    </table>
+    </form>   
+{% endblock conteudo %}
+
+
+
+
+
